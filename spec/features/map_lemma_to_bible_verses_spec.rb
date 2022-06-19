@@ -59,9 +59,7 @@ RSpec.describe "Map Lemma to Bible Verse", type: :feature do
       "Re": "Revelation"
     }
   }
-  # "Can load the page" is just a test to make sure the framework is working
-  it "Can load the book verse file" do
-    # puts File.basename(Dir.getwd)
+  it "1. Create bible.json" do
     bible_hash = {}
     book_map[:numbers].each_key do |book_number|
       book_index = book_number.to_s.to_i
@@ -81,8 +79,6 @@ RSpec.describe "Map Lemma to Bible Verse", type: :feature do
           verse_text = components[1]
 
           book_name = book_map[:abbreviations][book_abbrev.to_sym]
-          # puts "#{book_name} #{chapter}:#{verse} - #{verse_text}"
-          #
           bible_hash[book_name] = {} if bible_hash[book_name].nil?
           bible_hash[book_name][chapter] = {} if bible_hash[book_name][chapter].nil?
           bible_hash[book_name][chapter][verse] = verse_text
@@ -93,7 +89,8 @@ RSpec.describe "Map Lemma to Bible Verse", type: :feature do
     puts bible_hash.to_json
     File.write('bible.json', JSON.dump(bible_hash))
   end
-  it "Can load the book morphology file" do
+
+  it "2. Create Lemma Example Files" do
     lemma_to_reference_map = {}
     book_map[:numbers].each_key do |book_number|
       book_index = book_number.to_s.to_i
@@ -118,9 +115,7 @@ RSpec.describe "Map Lemma to Bible Verse", type: :feature do
       end
     end
 
-    # puts lemma_to_reference_map.to_json
     bible_json = JSON.parse(File.read("bible.json"))
-    # puts bible_json
     lemma_to_verse_map = {}
 
     tabbed_data = []
@@ -133,7 +128,6 @@ RSpec.describe "Map Lemma to Bible Verse", type: :feature do
       tabbed_data.push("#{lemma}\t#{lemma_to_verse_map[lemma][:reference]}\t#{lemma_to_verse_map[lemma][:verse]}")
     end
 
-    # puts lemma_to_verse_map.to_json
     puts tabbed_data
 
     File.write('lemma-example-verses.json', JSON.dump(lemma_to_verse_map))
