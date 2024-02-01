@@ -4,6 +4,7 @@ RSpec.describe "Map Lemma to AF Verse", type: :feature do
     first_word_occurrence_map = {}
     File.open("./private_data/af/af-word-verse-mapping.csv") do |file|
       puts "file opened"
+      word_count = 1
       file.each do |line|
         next if line.strip.empty?
         reference, leader, word, trailer, lemma, part_of_speech = line.strip.split(",")
@@ -12,9 +13,12 @@ RSpec.describe "Map Lemma to AF Verse", type: :feature do
           first_word_occurrence_map[lemma] = {
             reference: reference,
             part_of_speech: part_of_speech,
-            unmarked_lemma: remove_markings(lemma)
+            unmarked_lemma: remove_markings(lemma),
+            word_number: word_count
           }
         end
+
+        word_count += 1
       end
       puts "work done"
     end
@@ -38,11 +42,12 @@ RSpec.describe "Map Lemma to AF Verse", type: :feature do
       reference = data[:reference]
       part_of_speech = data[:part_of_speech]
       unmarked_lemma = data[:unmarked_lemma]
+      word_number = data[:word_number]
       verse_text = af_text_map[reference]
 
       first_word_occurrence_map[lemma][:verse_text] = verse_text
 
-      tabbed_data.push("#{lemma}\t#{unmarked_lemma}\t#{reference}\t#{verse_text}\t#{part_of_speech}")
+      tabbed_data.push("#{lemma}\t#{unmarked_lemma}\t#{reference}\t#{verse_text}\t#{part_of_speech}\t#{word_number}")
     end
 
     File.write('af-lemma-example-verses.json', JSON.dump(first_word_occurrence_map))
