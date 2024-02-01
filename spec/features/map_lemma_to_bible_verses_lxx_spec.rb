@@ -48,11 +48,7 @@ def get_first_word_occurrence_data(book_abbreviations, first_word_occurrence_key
   return first_word_occurrence, tabbed_data
 end
 
-def remove_markings(s)
-  return s.unicode_normalize(:nfc).tr("ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿΆΈΊΌΐάέήίΰϊϋόύώỏἀἁἂἃἄἅἆἈἉἊἌἍἎἐἑἒἓἔἕἘἙἜἝἠἡἢἣἤἥἦἧἨἩἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἼἽἾὀὁὂὃὄὅὈὉὊὋὌὍὐὑὓὔὕὖὗὙὝὠὡὢὣὤὥὦὧὨὩὫὬὭὮὯὰὲὴὶὸὺὼᾐᾑᾓᾔᾕᾖᾗᾠᾤᾦᾧᾰᾱᾳᾴᾶᾷᾸᾹῂῃῄῆῇῐῑῒῖῗῘῙῠῡῢῥῦῨῩῬῳῴῶῷῸᾅ","AAAAAAÆCEEEEIIIINOOOOOOUUUUYaaaaaaæceeeeiiiinoooooouuuuyyΑΕΙΟιαεηιυιυουωoαααααααΑΑΑΑΑΑεεεεεεΕΕΕΕηηηηηηηηΗΗΗΗΗΗΗιιιιιιιιΙΙΙΙΙοοοοοοΟΟΟΟΟΟυυυυυυυΥΥωωωωωωωωΩΩΩΩΩΩΩαεηιουωηηηηηηηωωωωααααααΑΑηηηηηιιιιιΙΙυυυρυΥΥΡωωωωΟα")
-end
-
-RSpec.describe "Map Lemma to Bible Verse", type: :feature do
+RSpec.describe "Map Lemma to LXX Bible Verse", type: :feature do
   book_abbreviations = {
     "Gen": "Genesis",
     "Exod": "Exodus",
